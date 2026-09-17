@@ -19,6 +19,8 @@ The project also includes a small geospatial component, using the earthquake coo
 
 Calls the USGS Public API and saves the raw GeoJSON response as a date-partitioned JSON file in the Lakehouse, no transformations, raw data preserved exactly as received.
 
+##
+
 ### Silver-Clean & Flatten
 ### Notebook: [Silver](notebooks/Silver.ipynb)
 
@@ -40,6 +42,8 @@ The transformation extracts information such as:
 
 The unix timestamps provided by the API are also converted into timestamp values, the cleaned data is stored in the Delta Table. The silver layer provides a cleaner and more consistent dataset for downstream processing.
 
+##
+
 ### Gold-Enrich & Serve
 
 ### Notebook: [Gold](notebooks/Gold.ipynb)
@@ -54,13 +58,17 @@ Two main enrichments are performed.
 ### Reverse Geocoding (country_code)
 Each event's (latitude, longitude) in WGS84 (EPSG:4326) is resolved to a country code using the *reverse geocoder* library. It runs fully offline, no API key needed.
 
+##
+
 ## Pipeline Orchestration
-The pipeline is automated using **Microsoft Fabric Data Factory** and uses data variable to control the processing window. The pipeline uses a date-iterator loop, processing one day at a time across the date window, with Wait activities between each notebook to allow Spark compute to release its session before the next one starts.
+The Data Factory pipeline orchestrates the entire data workflow, from retrieving earthquake data from the USGS API to preparing the final dataset for Power BI. The pipeline processes the data through the Bronze, Silver, and Gold layers, applies incremental *incremental upserts* using Delta Lake **MERGE**, and refreshes the semantic model once processing is complete.
 
 ![Fabric Data Factory Pipeline](docs/images/earthquake_pipeline.png)
 
+The pipeline is automated using **Microsoft Fabric Data Factory** and uses data variable to control the processing window. The pipeline uses a date-iterator loop, processing one day at a time across the date window, with Wait activities between each notebook to allow Spark compute to release its session before the next one starts.
+
 ### Dual Schedule
+* The daily run handles completeness, the intraday run keeps the dashboard current with the events that happened earlier today.
 
-The daily run handles completeness, the intraday run keeps the dashboard current with the events that happened earlier today.
-
+### Data Management Stategy
 The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existing earthquake records are updated in place, which is conceptually similar to SCD (Slowly Changing Dimension) Type 1 behavior, although the Gold table is an event table rather than a traditional dimension.
