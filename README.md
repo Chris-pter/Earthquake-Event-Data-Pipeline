@@ -10,6 +10,7 @@ The project also includes a small geospatial component, using the earthquake coo
 
 # **Architecture**
 <img src= ./docs/>
+
 ## Medallion Layers
 ### Bronze-Raw Ingestion
 ### Notebook: Bronze
