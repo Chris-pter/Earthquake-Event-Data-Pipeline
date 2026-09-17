@@ -72,3 +72,9 @@ The pipeline is automated using **Microsoft Fabric Data Factory** and uses data 
 
 ### Data Management Stategy
 The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existing earthquake records are updated in place, which is conceptually similar to SCD (Slowly Changing Dimension) Type 1 behavior, although the Gold table is an event table rather than a traditional dimension.
+
+## Workspace Lineage
+
+The lineage view below shows the full dependency graph across all Fabric items, from environment and lakehouse through to the Power BI report.
+
+[Fabric Workspace Lineage](docs/images/workspace_lineage)
