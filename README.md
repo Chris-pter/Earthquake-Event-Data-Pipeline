@@ -56,7 +56,7 @@ Each event's (latitude, longitude) in WGS84 (EPSG:4326) is resolved to a country
 ## Pipeline Orchestration
 The pipeline is automated using **Microsoft Fabric Data Factory** and uses data variable to control the processing window. The pipeline uses a date-iterator loop, processing one day at a time across the date window, with Wait activities between each notebook to allow Spark compute to release its session before the next one starts.
 
-![Fabric Data Factory Pipeline](docs/images/earthquake_pipeline)
+![Fabric Data Factory Pipeline](docs/images/earthquake_pipeline.png)
 
 ### Dual Schedule
 
