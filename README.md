@@ -9,7 +9,7 @@ The project also includes a small geospatial component, using the earthquake coo
 **Stack**: Microsoft Fabric · PySpark · Delta Lake · USGS FDSNWS API · reverse geocoder
 
 # **Architecture**
-
+<img src= ./docs/>
 ## Medallion Layers
 ### Bronze-Raw Ingestion
 ### Notebook: Bronze
