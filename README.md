@@ -70,7 +70,6 @@ The pipeline is automated using **Microsoft Fabric Data Factory** and uses data 
 ### Dual Schedule
 * The daily run handles completeness, the intraday run keeps the dashboard current with the events that happened earlier today.
 
-![Pipeline Schedule](docs/images/pipeline_schedule.png)
 
 ### Data Management Stategy
 The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existing earthquake records are updated in place, which is conceptually similar to SCD (Slowly Changing Dimension) Type 1 behavior, although the Gold table is an event table rather than a traditional dimension.
