@@ -13,13 +13,14 @@ The project also includes a small geospatial component, using the earthquake coo
 <img src= ./docs/images/fabric_data_architecture.png>
 
 ## Medallion Layers
+
 ### Bronze-Raw Ingestion
-### Notebook: Bronze
+### Notebook: [Bronze](notebooks/Bronze.ipynb)
 
 Calls the USGS Public API and saves the raw GeoJSON response as a date-partitioned JSON file in the Lakehouse, no transformations, raw data preserved exactly as received.
 
 ### Silver-Clean & Flatten
-### Notebook: Silver
+### Notebook: [Silver](notebooks/Silver.ipynb)
 
 Reads the Bronze JSON and flattens the nested GeoJSON structure into a clean table/schema.
 
@@ -41,7 +42,7 @@ The unix timestamps provided by the API are also converted into timestamp values
 
 ### Gold-Enrich & Serve
 
-### Notebook: Gold
+### Notebook: [Gold](notebooks/Gold.ipynb)
 
 Adds two enrichment columns on top of silver and upserts into **gold_events**. The gold layer prepares the data for analysis and reporting. The Silver data is filtered according to the pipeline date range and additional information is added.
 
