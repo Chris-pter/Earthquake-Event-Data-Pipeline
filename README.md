@@ -78,4 +78,4 @@ The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existi
 
 The lineage view below shows the full dependency graph across all Fabric items, from environment and lakehouse through to the Power BI report.
 
-[Fabric Workspace Lineage](docs/images/workspace_lineage)
+[Fabric Workspace Lineage](docs/images/workspace_lineage.png)
