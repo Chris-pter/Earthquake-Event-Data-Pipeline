@@ -99,7 +99,7 @@ The lineage view below shows the full dependency graph across all Fabric items, 
 ## Power BI Report & semantic Model
 The **"gold_events"** Delta table is connected to the Earthquake_Semantic model in Direct Lake mode, which powers the Earthquake_model Power BI report. The report is automatically refreshed at the end of every pipeline run.
 
-![Power BI Report](docs/images/earthquake_model)
+![Power BI Report](docs/images/earthquake_model.png)
 
 The report includes a date slicer where users can type in any number of days, all visuals update simultaneously based on the selected window.
 
