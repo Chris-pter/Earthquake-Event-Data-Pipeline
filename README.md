@@ -99,7 +99,20 @@ The lineage view below shows the full dependency graph across all Fabric items, 
 ## Power BI Report & semantic Model
 The **"gold_events"** Delta table is connected to the Earthquake_Semantic model in Direct Lake mode, which powers the Earthquake_model Power BI report. The report is automatically refreshed at the end of every pipeline run.
 
+Direct Lake is a Microsoft Fabric feature that allows PBI to read directly from the Delta table in the Lakehouse without copying or importing the data. This means the moment the pipeline finishes and the semantic model refreshes, the dashboard immediately reflects the latest earthquake data with no manual steps needed.
+
 ![Power BI Report](docs/images/earthquake_model.png)
 
-The report includes a date slicer where users can type in any number of days, all visuals update simultaneously based on the selected window.
+### World Earthquake Dashboard
+The report is built on top of the gold_events table and uses the enriched columns produced by the Gold Notebook (*sig_class*, *country_code*, *mag*. and *time*) to power all the visuals.
+
+* The world map plots every earthquake as a bubble on a global map using the latitude and longitude coordinates. Each bubble is coloured by sig_class, so at a glance you can see where Low, Moderate, and High significance events are clustered across the globe.
+* The KPI cards at the top give an instant summary of the current date window, total earthquake count, average magnitude, maximum magnitude, and the number of high significance events.
+* The donut chart breaks down the total count by sig_class, showing the proportion of Low, Moderate, and High events. Most earthquakes globally fall into the Low category, which the donut reflects clearly.
+* The magnitude bar chart groups events into magnitude bands, showing how many earthquakes fell in each range. This makes it easy to see that smaller magnitude events (below 2.0) dominate the dataset.
+* The Event Over Time line charts shows the daily volume of earthquakes across the selected date window, useful for spotting spikes or quiet periods in global seismic activity.
+* The country bar chart ranks countries by total earthquake count using the country code column produced by the Gold reverse geocoding step.
+* The latest earthquake summary card shows the most recent event in the dataset. date, country, magnitude, and significance class - giving users a quick snapshot of what recently happened.
+* The report includes a date slicer where users can type in any number of days, all visuals update simultaneously based on the selected window.
+
 
