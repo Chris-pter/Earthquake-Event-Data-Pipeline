@@ -56,7 +56,7 @@ Two main enrichments are performed.
 * The USGS sig value is converted into three simple categories to make the data easier to interpret and use in reporting:
 
 * Low - sig < 100
-* Moderate - 100 =< sig < 500
+* Moderate - sig 100 =< sig < 500
 * High - sig >= 500
 
 This provides a simplified representation of the USGS significance score for analysis and visualization in Power BI.
@@ -95,3 +95,11 @@ The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existi
 The lineage view below shows the full dependency graph across all Fabric items, from environment and lakehouse through to the Power BI report.
 
 ![Fabric Workspace Lineage](docs/images/workspace_lineage.png)
+
+## Power BI Report & semantic Model
+The **"gold_events"** Delta table is connected to the Earthquake_Semantic model in Direct Lake mode, which powers the Earthquake_model Power BI report. The report is automatically refreshed at the end of every pipeline run.
+
+![Power BI Report](docs/images/earthquake_model)
+
+The report includes a date slicer where users can type in any number of days, all visuals update simultaneously based on the selected window.
+
