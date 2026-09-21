@@ -79,8 +79,6 @@ The earthquake event's latitude and longitude are used to determine its correspo
 
 The coordinates are processed using reverse geocoding, and the resulting country code is added to the Gold Layer. This makes the earthquake data easier to analyze and visualize geographically.
 
-##
-
 ## Pipeline Orchestration
 The Data Factory pipeline orchestrates the entire data workflow, from retrieving earthquake data from the USGS API to preparing the final dataset for Power BI. The pipeline processes the data through the Bronze, Silver, and Gold layers, applies incremental *incremental upserts* using Delta Lake **MERGE**, and refreshes the semantic model once processing is complete.
 
@@ -128,4 +126,16 @@ The report is built on top of the gold_events table and uses the enriched column
 * The latest earthquake summary card shows the most recent event in the dataset. date, country, magnitude, and significance class - giving users a quick snapshot of what recently happened.
 * The report includes a date slicer where users can type in any number of days, all visuals update simultaneously based on the selected window.
 
+## Quick Start
 
+git clone [https://github.com/Chris-pter/Earthquake-Event-Data-Pipeline.git]
+
+Then in Microsoft fabric:
+1. Create a Lakehouse - e.g. earthquake_Lakehouse
+2. Create Environement- e.g. earthquake_env, and add reverse_geocoder then publish/attach to the Gold notebook.
+3. Import all the notebooks and set/attach earthquake_Lakehouse as the default lakehouse for each.
+4. Build the data pipeline with the loop, wait and semantic model refresh.
+5. Create earthquake_semantic model over gold events in Direct Lake mode and then build the Earthquake_model for reporting.
+6. Set Schedule for your ADF pipeline.
+
+Full setup: [docs.setup.md]
