@@ -53,10 +53,18 @@ Adds two enrichment columns on top of silver and upserts into **gold_events**. T
 Two main enrichments are performed.
 
 ### Significance Classification (sig_class)
-* The USGS sig value is converted into a simple classification:
+* The USGS sig value is converted into three simple categories to make the data easier to interpret and use in reporting:
+
+* Low - sig < 100
+* Moderate - 100 =< sig < 500
+* High - sig >= 500
+
+This provides a simplified representation of the USGS significance score for analysis and visualization in Power BI.
 
 ### Reverse Geocoding (country_code)
-Each event's (latitude, longitude) in WGS84 (EPSG:4326) is resolved to a country code using the *reverse geocoder* library. It runs fully offline, no API key needed.
+The earthquake event's latitude and longitude are used to determine its corresponding country.
+
+The coordinates are processed using reverse geocoding, and the resulting country code is added to the Gold Layer. This makes the earthquake data easier to analyze and visualize geographically.
 
 ##
 
@@ -76,6 +84,11 @@ The pipeline is automated using **Microsoft Fabric Data Factory** and uses data 
 
 ### Data Management Stategy
 The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existing earthquake records are updated in place, which is conceptually similar to SCD (Slowly Changing Dimension) Type 1 behavior, although the Gold table is an event table rather than a traditional dimension.
+
+### Gold Upsert
+* The enriched records are then upserted into the **gold_events** Delta table using *Delta Lake* MERGE.
+* Existing records matching the **"earthquake_id"** are updated, while new earthquake events are inserted. This allows the GOld layer to remain cuurent as the USGS data is updated.
+
 
 ## Workspace Lineage
 
