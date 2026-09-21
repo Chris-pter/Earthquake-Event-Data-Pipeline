@@ -6,7 +6,20 @@ The data is collected and processed through Microsoft Fabric, where it moves thr
 
 The project also includes a small geospatial component, using the earthquake coordinates to support location-based enrichment such as country identification.
 
-**Stack**: Microsoft Fabric · PySpark · Delta Lake · USGS FDSNWS API · reverse geocoder
+**Stack**: Microsoft Fabric · PySpark · Delta Lake · USGS API · reverse geocoder
+
+## How the Data Flows
+Every earthquake detected worldwide is published by the USGS through their public API as a GeoJSON response, containing coordinates, magnitude, significance score, and timestamp
+
+The Bronze notebook calls the API and lands the raw response into the Lakehouse as a date-partitioned JSON file. No transformations, raw data preserved as-is.
+
+The Silver Notebook reads that JSON, flattens the nested GeoJSON structured into a relational schema, extracts longitude, latitude, and depth from the geometry coordinates, and converts unix millisecond timestamp into readable Spark Timestamp values. The cleaned data is upserted into the silver_events Delta table.
+
+The Gold notebook enriches the silver data by deriving a significance class (Low/Moderate/High) from the USGS sig score, and reverse geocoding each event's coordinates to a country code. The enriched data is upserted into gold_events via Delta Lake Merge.
+
+Once Gold completes, the pipeline triggers a Power BI semantic model refresh in Direct Lake mode, the dashboard reflects the latest data automatically, no manual step needed.
+
+The pipeline runs on a dual schedule, daily at midgnight for completeness, and every 3 hours to capture new and revised events within the current day.
 
 # **Architecture**
 
