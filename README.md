@@ -138,4 +138,4 @@ Then in Microsoft fabric:
 5. Create earthquake_semantic model over gold events in Direct Lake mode and then build the Earthquake_model for reporting.
 6. Set Schedule for your ADF pipeline.
 
-Full setup: [docs.setup.md]
+Full setup: [docs/setup.md](docs/setup.md)
