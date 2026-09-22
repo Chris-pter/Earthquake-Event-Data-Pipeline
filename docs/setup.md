@@ -80,6 +80,8 @@ Before running the pipepline for the first time, the silver and gold_events Delt
      ![Gold Delta Table Creation](./images/goldinitialtable.png)
 3. Confirm both tables appear in your Lakehouse Tables section.
 
+** * IMPORTANT* ** Before the initial pipeline run, execute the commented table-creation cells in both the Silver and Gold notebooks once to create the silver_events and gold_events Delta tables. Subsequent pipeline runs use Delta Lake MERGE for idempotent upserts.
+
 ### Step 6 - Build the Azure Data Factory Pipeline
 
 1. Inside the workspace click New Item -> Pipeine
