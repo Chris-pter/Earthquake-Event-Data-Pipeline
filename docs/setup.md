@@ -212,7 +212,7 @@ To run the pipeline manually for the first time:
 4. Click OK
 5. Monitor progress under the activities tab.
 
-![Run Result](./images/pipeine_status.png)
+![Run Result](./images/pipeline_status.png)
 
 
 Once the run completes, open Earthquake_model your dashboard should be populated with data.
