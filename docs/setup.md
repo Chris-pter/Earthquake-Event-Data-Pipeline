@@ -14,10 +14,16 @@ NOTE: To activate a Fabric trial you need a Microsoft account with an Azure Acti
 3. Name your workspace.
 4. Click Apply.
 
+![Create_Workspace](./images/create_workspace01.png)
+
+![Create_Workspace](./images/create_workspace02.png)
+
 ### Step 2 Create a Lakehouse
 1. Inside the Earthquake Workspace, click New item
 2. Select Lakehouse.
 3. Name your Lakehouse and create Lakehouse
+
+![Create_Lakehouse](./images/createlakehouse.png)
 
 The Lakehouse will automatically provision:
 * A **Files** Zone - where Bronze JSON files are stored.
@@ -35,6 +41,8 @@ The Gold notebook requires the reverse_geocoder library which is not available i
 
 * IMPORTANT: Publishing the environment takes a few minutes. Wait until it shows Published before moving to the next step.
 
+![Create_Custom_Environment](./images/createenv.png)
+
 ### Step 4 Create the Notebooks
 Create four notebook inside the workspace. For each one:
 
@@ -46,7 +54,9 @@ Create four notebook inside the workspace. For each one:
 3. Set/Attach each notebooks to the Lakehouse - click **Add Lakehouse** on the panel and select it.
 4. Copy the code from the corresponding file in the notebooks/ folder of this repo.
 
-** Attach the Environment to Gold**
+![Attach Lakehouse](./images/attachlakehousetonotebbok.png)
+
+**Attach the Environment to Gold**
 After creating the Gold notebook:
 1. Open the Gold notebook
 2. On the top toolbar click Home -> Environment
@@ -58,9 +68,9 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 1. Open silver and gold notebooks
 2. Run the cells below:
    * Silver Notebook
-     ![Silver Delta Table Creation](docs/images/silver_delta_table.png)
+     ![Silver Delta Table Creation](./images/silverinitialtable.png)
    * Gold Notebook
-     ![Gold Delta Table Creation](docs/images/gold_delta_table.png)
+     ![Gold Delta Table Creation](./images/goldinitialtable.png)
 3. Confirm both tables appear in your Lakehouse Tables section.
 
 ### Step 6 - Build the Azure Data Factory Pipeline
