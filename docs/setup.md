@@ -1,5 +1,5 @@
 # Setup Guide
-This guide walks through how to recreate the full Earthquake Event Data Engineering Pipeline form scratch on Microsoft Fabric.
+This guide walks through how to recreate the full Earthquake Event Data Engineering Pipeline from scratch on Microsoft Fabric.
 
 ## Prerequisites
 You need one of the following to access Microsoft Fabric:
@@ -33,11 +33,11 @@ The Lakehouse will automatically provision:
 ### Step 3 Create a custom environment
 The Gold notebook requires the reverse_geocoder library which is not available in the default fabric Spark environment.
 
-1. Inside the workspace environment click New Item -> Environemnt
+1. Inside the workspace environment click New Item -> Environment
 2. Name it and click create.
 3. Go to libraries -> External repositories.
    * Public repository: PyPI
-   * Name: Search: 'revers geocoder' and choose the latest version.
+   * Name: Search: 'reverse geocoder' and choose the latest version.
 4. Click save then Publish
 
 * IMPORTANT: Publishing the environment takes a few minutes. Wait until it shows Published before moving to the next step.
@@ -71,7 +71,7 @@ After creating the Gold notebook:
 ![Gold_env](./images/goldenv.png)
 
 ### Step 5 - Initialize the Delta Tables
-Before running the pipepline for the first time, the silver and gold_events Delta tables must exist, the Silver and Gold Merge operations require the target tables to already be there.
+Before running the pipeline for the first time, the silver and gold_events Delta tables must exist, the Silver and Gold Merge operations require the target tables to already be there.
 1. Open silver and gold notebooks
 2. Run the cells below:
    * Silver Notebook
@@ -221,9 +221,9 @@ Once the run completes, open Earthquake_model your dashboard should be populated
 
 # You're All Set
 
-Thats everything. If you followed every step correctly, the pipeline works perfectly and your're a genius. If it does'nt, welcome to data engineering.
+That's everything. If you followed every step correctly, the pipeline works perfectly and you're a genius. If it doesn't, welcome to data engineering.
 
-A failed Livy session, a Merge that wont resolve, a stuck timestamp. These are not bugs, they are features of the learning experience.
+A failed Livy session, a Merge that won't resolve, a stuck timestamp. These are not bugs, they are features of the learning experience.
 
 Debug it, fix it, and you'll understand the whole thing twice as well as someone who got it right the first time. Which is probably no one.
 
