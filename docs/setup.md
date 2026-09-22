@@ -35,15 +35,19 @@ The Gold notebook requires the reverse_geocoder library which is not available i
 
 1. Inside the workspace environment click New Item -> Environemnt
 2. Name it and click create.
-3. Go to libraries -> Public libraries.
-4. In the search box type reverse_geocoder and select it
-5. Click save then Publish
+3. Go to libraries -> External repositories.
+   * Public repository: PyPI
+   * Name: Search: 'revers geocoder' and choose the latest version.
+4. Click save then Publish
 
 * IMPORTANT: Publishing the environment takes a few minutes. Wait until it shows Published before moving to the next step.
 
 ![Create_Custom_Environment](./images/createenv.png)
 
 ### Step 4 Create the Notebooks
+
+![Create_Custom_Environment](./images/createlakehouse.png)
+
 Create four notebook inside the workspace. For each one:
 
 1. Click New Item -> Notebook
