@@ -219,9 +219,9 @@ To run the pipeline manually for the first time:
 
 Once the run completes, open Earthquake_model your dashboard should be populated with data.
 
-# Youre All Set
+# You're All Set
 
-Thats everything. If you followed every step correctly, the pipeline works perfectly and your're a genius. If it doesnt, welcome to data engineering.
+Thats everything. If you followed every step correctly, the pipeline works perfectly and your're a genius. If it does'nt, welcome to data engineering.
 
 A failed Livy session, a Merge that wont resolve, a stuck timestamp. These are not bugs, they are features of the learning experience.
 
