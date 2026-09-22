@@ -92,9 +92,10 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 Select "Activities" -> click  Set Variable -> create each variable as below:
 1. Name: start_date | type: String | Value: {your start_date}
 2. Name: Today | type: String | Value: @formatDateTime(utcNow(), 'yyyy-MM-dd')
-3. Name: end_date | type: String | value:
+3. Name: end_date | type: String | value: In my case "2026-09-01"
+  * **NOTE**: The end_date variable must have an initial value because Fabric requires pipeline variables to be defined before execution.
 4. Name: until1 | expression: @greaterOrEquals(variables('start_date'), variables('today'))
-5. 5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
+5.  Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
    NOTE: You need to do step 8 first.
 
 6.2 Build Inside the Until Loop
