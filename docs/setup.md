@@ -67,6 +67,8 @@ After creating the Gold notebook:
 3. Select earthquake_env
 4. Save the notebook.
 
+![Gold_env](./images/goldenv.png)
+
 ### Step 5 - Initialize the Delta Tables
 Before running the pipepline for the first time, the silver and gold_events Delta tables must exist, the Silver and Gold Merge operations require the target tables to already be there.
 1. Open silver and gold notebooks
@@ -82,15 +84,19 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 1. Inside the workspace click New Item -> Data Pipeine
 2. Name it and click Create
 
+![Create ADF Pipeline](./images/createpipeline.png)
+
 6.1  Add pipeline variable
 
-Click the canvas backgorund -> go to the Variables tab -> create each variable as below:
+![Pipeline sequence](./images/earthquake_pipeline.png)
+
+Select "Activities" -> click  Set Variable -> create each variable as below:
 1. Name: start_date | type: String | Value: {your start_date}
 2. Name: Today | type: String | Value: empty
 3. Name: end_date | type: String | value:
 4. Name: until1 | expression: @greaterOrEquals(variables('start_date'), variables('today'))
 5. 5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
-   NOTE: Step 5, you need to do step 8 first.
+   NOTE: You need to do step 8 first.
 
 6.2 Build Inside the Until Loop
 
