@@ -219,6 +219,13 @@ To run the pipeline manually for the first time:
 
 Once the run completes, open Earthquake_model your dashboard should be populated with data.
 
+# USGS API Query Limitation
+The USGS Earthquake Catalog API limits a single query to 20,000 events. If query exceeds this limit, the API returns **HTTP 400 Bad Request**
+
+For this project, the historical ingestion therefore uses monthly date ranges to keep each API request within the result limit and ensure the full dataset can be retrieved. The API also interprets unspecified times as UTC, which should be considered when defining the pipeline date ranges.
+
+* This is why the pipeline processes the historical data month-by-month rather than requesting the entire period in a single API call.
+
 # You're All Set
 
 That's everything. If you followed every step correctly, the pipeline works perfectly and you're a genius. If it doesn't, welcome to data engineering.
