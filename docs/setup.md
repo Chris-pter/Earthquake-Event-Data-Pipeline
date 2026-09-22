@@ -182,7 +182,7 @@ In the pipeline click **Schedule** on the top toolbar selection
 
 The semantic model will open automatically in Direct Lake mode.
 
-![untilloop](./images/create_semantic.png)
+![Semantic Model](./images/create_semantic.png)
 
 ### Step 9 - Create the PBI Report
 
