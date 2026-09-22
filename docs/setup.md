@@ -1,4 +1,4 @@
-<img width="959" height="411" alt="image" src="https://github.com/user-attachments/assets/9aaa68b8-0e1a-454a-b843-a1c8ae35f8bb" /># Setup Guide
+# Setup Guide
 This guide walks through how to recreate the full Earthquake Event Data Engineering Pipeline form scratch on Microsoft Fabric.
 
 ## Prerequisites
