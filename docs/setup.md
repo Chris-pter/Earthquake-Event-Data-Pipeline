@@ -157,7 +157,6 @@ Double click the Until activity to open it, then add the following activities in
    * Name: start_date
    * Value:@variables('end_date')
 
-![Loop_start_date](./images/loop_start_date_setting.png)
 
 * **Wait Activities** -Optional-
 
