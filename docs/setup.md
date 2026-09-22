@@ -1,4 +1,4 @@
-# Setup Guide
+<img width="959" height="411" alt="image" src="https://github.com/user-attachments/assets/9aaa68b8-0e1a-454a-b843-a1c8ae35f8bb" /># Setup Guide
 This guide walks through how to recreate the full Earthquake Event Data Engineering Pipeline form scratch on Microsoft Fabric.
 
 ## Prerequisites
@@ -85,7 +85,7 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 1. Inside the workspace click New Item -> Pipeine
 2. Name it and click Create
 
-![Pipeline sequence](./images/earthquake_pipeline.png)
+![Pipeline sequence](./images/createpipeline.png)
 
 6.1  Add pipeline variable
 
@@ -95,7 +95,7 @@ Select "Activities" -> click  Set Variable -> create each variable as below:
 3. Name: end_date | type: String | value: In my case "2026-09-01"
   * **NOTE**: The end_date variable must have an initial value because Fabric requires pipeline variables to be defined before execution.
 4. Name: until1 | expression: @greaterOrEquals(variables('start_date'), variables('today'))
-5.  Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
+5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
    NOTE: You need to do step 8 first.
 
 6.2 Build Inside the Until Loop
@@ -112,6 +112,8 @@ Double click the Until activity to open it, then add the following activities in
     'yyyy-MM-dd'
 )
 
+![Loop start_date](./images/loop_start_date_setting.png)
+
 2. Notebook - Bronze
    * Click Notebook on the toolbar
    * Select the Bronze notebook
@@ -122,6 +124,8 @@ Double click the Until activity to open it, then add the following activities in
        1. start_date | String | @variables('start_date')
        2. end_date | String | @variables('end_date')
 
+![Bronze_notebook_setting](./images/broonze_loop_setting.png)
+
 3. Notebook - Silver
    * Click Notebook on the toolbar
    * Select the Silver notebook
@@ -130,7 +134,9 @@ Double click the Until activity to open it, then add the following activities in
        * Notebook: Silver
    * Base parameters
        1. start_date | String | @variables('start_date')
-    
+
+![Silver_notebook_setting](./images/silver_loop_setting.png)
+
 4. Notebook - Gold
    * Click Notebook on the toolbar
    * Select the Gold notebook
@@ -140,21 +146,26 @@ Double click the Until activity to open it, then add the following activities in
    * Base parameters
        1. start_date | String | @variables('start_date')
        2. end_date | String | @variables('end_date')
-    
+
+![Gold_notebook_setting](./images/gold_loop_setting.png)
+
 5. Set Variable - loop_start_date
    * Variable: loop_end_date
    * Variable type: Pipeline variable
    * Name: start_date
    * Value:@variables('end_date')
 
+![Loop_start_date](./images/loop_start_date_setting.png)
+
 * **Wait Activities** -Optional-
+
 The Wait activities are added between each notebook to give Spark enough time to release its Livy session before the next one starts. This was necessary on a Fabric trial account where Spark compute is limited. If you are on a paid Fabric capacity, you can reduce the duration or remove them entirely.
 
 Connect all the activities in sequence inside the loop. As well as the main canvas as below:
 
-!{maincanvas}(maincanvassequence.png)
+![Pipeline sequence](./images/earthquake_pipeline.png)
 
-!{untilloop}(untilloopsequence.png)
+![untilloop](./images/untilloopcanvas.png)
 
 ### Step 7 Set the schedule
 
@@ -171,10 +182,12 @@ In the pipeline click **Schedule** on the top toolbar selection
 
 The semantic model will open automatically in Direct Lake mode.
 
+![untilloop](./images/create_semantic.png)
+
 ### Step 9 - Create the PBI Report
 
 1. Open the Semantic model
-2. Click create report -> Start from scratch
+2. Click File -> Create new report
 3. Name the report e.g. Earthquake_model
 4. Build your visual using the gold_events/gold table columns:
    * World Map
@@ -185,19 +198,24 @@ The semantic model will open automatically in Direct Lake mode.
    * Date slice on time - **set to numeric range (number of days)
 5. Save and publish the report
 
+![Power BI Report](./images/create_report.png)
+
 ### Step 10 - Run the Pipeline
 
 To run the pipeline manually for the first time:
 
-1. OPen your pipeline
+1. Open your pipeline
 2. Click Run
 3. Enter parameters:
    * start_date: your start_date
-   * end_date:
+   * end_date: your end_date
 4. Click OK
 5. Monitor progress under the activities tab.
 
-Once the run completes, open Earthquake_model (your dashboard should be populated with data.
+![Run Result](./images/pipeine_status.png)
+
+
+Once the run completes, open Earthquake_model your dashboard should be populated with data.
 
 # Youre All Set
 
