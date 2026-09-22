@@ -128,7 +128,7 @@ The report is built on top of the gold_events table and uses the enriched column
 
 ## Quick Start
 
-git clone [https://github.com/Chris-pter/Earthquake-Event-Data-Pipeline.git]
+git clone-https://github.com/Chris-pter/Earthquake-Event-Data-Pipeline.git
 
 Then in Microsoft fabric:
 1. Create a Lakehouse - e.g. earthquake_Lakehouse
