@@ -19,7 +19,7 @@ The Gold notebook enriches the silver data by deriving a significance class (Low
 
 Once Gold completes, the pipeline triggers a Power BI semantic model refresh in Direct Lake mode, the dashboard reflects the latest data automatically, no manual step needed.
 
-The pipeline runs on a dual schedule, daily at midgnight for completeness, and every 3 hours to capture new and revised events within the current day.
+The pipeline runs on a dual schedule, daily at midnight for completeness, and every 3 hours to capture new and revised events within the current day.
 
 # **Architecture**
 
@@ -55,8 +55,6 @@ The transformation extracts information such as:
 
 The unix timestamps provided by the API are also converted into timestamp values, the cleaned data is stored in the Delta Table. The silver layer provides a cleaner and more consistent dataset for downstream processing.
 
-##
-
 ### Gold-Enrich & Serve
 
 ### Notebook: [Gold](notebooks/Gold.ipynb)
@@ -80,7 +78,7 @@ The earthquake event's latitude and longitude are used to determine its correspo
 The coordinates are processed using reverse geocoding, and the resulting country code is added to the Gold Layer. This makes the earthquake data easier to analyze and visualize geographically.
 
 ## Pipeline Orchestration
-The Data Factory pipeline orchestrates the entire data workflow, from retrieving earthquake data from the USGS API to preparing the final dataset for Power BI. The pipeline processes the data through the Bronze, Silver, and Gold layers, applies incremental *incremental upserts* using Delta Lake **MERGE**, and refreshes the semantic model once processing is complete.
+The Data Factory pipeline orchestrates the entire data workflow, from retrieving earthquake data from the USGS API to preparing the final dataset for Power BI. The pipeline processes the data through the Bronze, Silver, and Gold layers, applies *incremental upserts* using Delta Lake **MERGE**, and refreshes the semantic model once processing is complete.
 
 ![Fabric Data Factory Pipeline](docs/images/earthquake_pipeline.png)
 
@@ -93,12 +91,12 @@ The pipeline is automated using **Microsoft Fabric Data Factory** and uses data 
 ![Hourly Refresh](docs/images/hourly.png)
 
 
-### Data Management Stategy
+### Data Management Strategy
 The pipeline uses Delta Lake **Merge** for incremental upsert processing. Existing earthquake records are updated in place, which is conceptually similar to SCD (Slowly Changing Dimension) Type 1 behavior, although the Gold table is an event table rather than a traditional dimension.
 
 ### Gold Upsert
 * The enriched records are then upserted into the **gold_events** Delta table using *Delta Lake* MERGE.
-* Existing records matching the **"earthquake_id"** are updated, while new earthquake events are inserted. This allows the GOld layer to remain cuurent as the USGS data is updated.
+* Existing records matching the **"earthquake_id"** are updated, while new earthquake events are inserted. This allows the GOld layer to remain curent as the USGS data is updated.
 
 
 ## Workspace Lineage
