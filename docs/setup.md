@@ -157,8 +157,9 @@ Double click the Until activity to open it, then add the following activities in
    * Name: start_date
    * Value:@variables('end_date')
 
+![Loop_start_date](./images/loop_start_date_setting.png)
 
-* **Wait Activities** -Optional-
+* **Wait Activities** Optional
 
 The Wait activities are added between each notebook to give Spark enough time to release its Livy session before the next one starts. This was necessary on a Fabric trial account where Spark compute is limited. If you are on a paid Fabric capacity, you can reduce the duration or remove them entirely.
 
