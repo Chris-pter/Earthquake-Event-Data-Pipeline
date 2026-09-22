@@ -69,14 +69,17 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 2. Name it and click Create
 
 6.1  Add pipeline variable
+
 Click the canvas backgorund -> go to the Variables tab -> create each variable as below:
 1. Name: start_date | type: String | Value: {your start_date}
 2. Name: Today | type: String | Value: empty
 3. Name: end_date | type: String | value:
 4. Name: until1 | expression: @greaterOrEquals(variables('start_date'), variables('today'))
-5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: { select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
+5. 5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
+   NOTE: Step 5, you need to do step 8 first.
 
 6.2 Build Inside the Until Loop
+
 Double click the Until activity to open it, then add the following activities in order:
 1. Set Variable - loop_end_date
    * Variable: loop_end_date
@@ -90,7 +93,7 @@ Double click the Until activity to open it, then add the following activities in
 2. Notebook - Bronze
    * Click Notebook on the toolbar
    * Select the Bronze notebook
-   * Under Base Parameters add:
+   * Under setting add:
        * Workspace: {select your workspace}
        * Notebook: Bronze
    * Base parameters
@@ -100,7 +103,7 @@ Double click the Until activity to open it, then add the following activities in
 3. Notebook - Silver
    * Click Notebook on the toolbar
    * Select the Silver notebook
-   * Under Base Parameters add:
+   * Under setting add:
        * Workspace: {select your workspace}
        * Notebook: Silver
    * Base parameters
@@ -109,9 +112,76 @@ Double click the Until activity to open it, then add the following activities in
 4. Notebook - Gold
    * Click Notebook on the toolbar
    * Select the Gold notebook
-   * Under Base Parameters add:
+   * Under setting add:
        * Workspace: {select your workspace}
        * Notebook: Gold
    * Base parameters
        1. start_date | String | @variables('start_date')
        2. end_date | String | @variables('end_date')
+    
+5. Set Variable - loop_start_date
+   * Variable: loop_end_date
+   * Variable type: Pipeline variable
+   * Name: start_date
+   * Value:@variables('end_date')
+
+-Wait activities
+
+Connect all the activities in sequence inside the loop. As well as the main canvas as below:
+
+!{maincanvas}(maincanvassequence.png)
+
+!{untilloop}(untilloopsequence.png)
+
+### Step 7 Set the schedule
+
+In the pipeline click **Schedule** on the top toolbar selection
+* Schedule the pipeline refresh daily or intraday.
+
+### Step 8 - Create the Semantic Model
+
+1. Go to your Lakehouse
+2. On the top toolbar, click New Semantic Model
+3. Name the semantic
+4. Select the gold events table
+5. Click Confirm
+
+The semantic model will open automatically in Direct Lake mode.
+
+### Step 9 - Create the PBI Report
+
+1. Open the Semantic model
+2. Click create report -> Start from scratch
+3. Name the report e.g. Earthquake_model
+4. Build your visual using the gold_events/gold table columns:
+   * World Map
+   * Donut Chart
+   * Bar Chart
+   * Line Chart
+   * KPI Cards
+   * Date slice on time - **set to numeric range (number of days)
+5. Save and publish the report
+
+### Step 10 - Run the Pipeline
+
+To run the pipeline manually for the first time:
+
+1. OPen your pipeline
+2. Click Run
+3. Enter parameters:
+   * start_date: your start_date
+   * end_date:
+4. Click OK
+5. Monitor progress under the activities tab.
+
+Once the run completes, open Earthquake_model (your dashboard should be populated with data.
+
+# Youre All Set
+
+Thats everything. If you followed every step correctly, the pipeline works perfectly and your're a genius. If it doesnt, welcome to data engineering.
+
+A failed Livy session, a Merge that wont resolve, a stuck timestamp. These are not bugs, they are features of the learning experience.
+
+Debug it, fix it, and you'll understand the whole thing twice as well as someone who got it right the first time. Which is probably no one.
+
+Good luck. You'll need it. 
