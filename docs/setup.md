@@ -56,9 +56,10 @@ Create four notebook inside the workspace. For each one:
    * Silver
    * Gold
 3. Set/Attach each notebooks to the Lakehouse - click **Add Lakehouse** on the panel and select it.
-4. Copy the code from the corresponding file in the notebooks/ folder of this repo.
 
 ![Attach Lakehouse](./images/attachlakehousetonotebbok.png)
+
+4. Copy the code from the corresponding file in the notebooks/ folder of this repo.
 
 **Attach the Environment to Gold**
 After creating the Gold notebook:
@@ -81,24 +82,24 @@ Before running the pipepline for the first time, the silver and gold_events Delt
 
 ### Step 6 - Build the Azure Data Factory Pipeline
 
-1. Inside the workspace click New Item -> Data Pipeine
+1. Inside the workspace click New Item -> Pipeine
 2. Name it and click Create
-
-![Create ADF Pipeline](./images/createpipeline.png)
-
-6.1  Add pipeline variable
 
 ![Pipeline sequence](./images/earthquake_pipeline.png)
 
+6.1  Add pipeline variable
+
 Select "Activities" -> click  Set Variable -> create each variable as below:
 1. Name: start_date | type: String | Value: {your start_date}
-2. Name: Today | type: String | Value: empty
+2. Name: Today | type: String | Value: @formatDateTime(utcNow(), 'yyyy-MM-dd')
 3. Name: end_date | type: String | value:
 4. Name: until1 | expression: @greaterOrEquals(variables('start_date'), variables('today'))
 5. 5. Name: Earthquake semantic model | connection: PowerBIDatasets user | Workspace: {select your workspace} | Semantic model: {select your semantic model} | Table(s): {Make sure you select the gold_events/gold table}
    NOTE: You need to do step 8 first.
 
 6.2 Build Inside the Until Loop
+
+![Until Loop Sequence](./images/untilloopcanvas.png)
 
 Double click the Until activity to open it, then add the following activities in order:
 1. Set Variable - loop_end_date
@@ -145,7 +146,8 @@ Double click the Until activity to open it, then add the following activities in
    * Name: start_date
    * Value:@variables('end_date')
 
--Wait activities
+* **Wait Activities** -Optional-
+The Wait activities are added between each notebook to give Spark enough time to release its Livy session before the next one starts. This was necessary on a Fabric trial account where Spark compute is limited. If you are on a paid Fabric capacity, you can reduce the duration or remove them entirely.
 
 Connect all the activities in sequence inside the loop. As well as the main canvas as below:
 
