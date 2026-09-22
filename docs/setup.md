@@ -114,7 +114,7 @@ Double click the Until activity to open it, then add the following activities in
     'yyyy-MM-dd'
 )
 
-![Loop start_date](./images/loop_start_date_setting.png)
+![Loop end_date](./images/loop_end_date_setting.png)
 
 2. Notebook - Bronze
    * Click Notebook on the toolbar
@@ -152,7 +152,7 @@ Double click the Until activity to open it, then add the following activities in
 ![Gold_notebook_setting](./images/gold_loop_setting.png)
 
 5. Set Variable - loop_start_date
-   * Variable: loop_end_date
+   * Variable: loop_start_date
    * Variable type: Pipeline variable
    * Name: start_date
    * Value:@variables('end_date')
